@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:login_page/create_password.dart';
 
 class EmailChk extends StatefulWidget {
   const EmailChk({super.key});
@@ -8,6 +11,22 @@ class EmailChk extends StatefulWidget {
 }
 
 class _EmailChkState extends State<EmailChk> {
+  int _seconds = 5;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer?.cancel();
+   
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +73,13 @@ class _EmailChkState extends State<EmailChk> {
               fontSize: 18.0,
             ),
           ),
+          GestureDetector(
+            child: const Text('Email verified'),
+            onTap: () {
+              print('I am a gesture detector.');
+            },
+          ),
+          const SizedBox(height: 300.0),
           TextButton(
             onPressed: () {},
             child: const Text("Haven't received an email yet?"),
@@ -61,5 +87,23 @@ class _EmailChkState extends State<EmailChk> {
         ],
       ),
     );
+
+    
+  }
+  
+  void startTimer() {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+        setState(() {
+          if (_seconds > 0) {
+            _seconds--;
+            print(_seconds);
+          } else {
+            _timer?.cancel();
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const PasswordRst(),
+            ));
+          }
+        });
+      });
   }
 }

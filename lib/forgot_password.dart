@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_page/mail_check.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
@@ -30,19 +31,27 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           ),
           const Text('Get it done right away.'),
           const SizedBox(height: 50.0),
-          const Text(
-            'Reset Password',
-            style: TextStyle(fontSize: 20),
-          ),
-          const Text(
-            ('Enter the email associated with your account and we will send you an email with instruction to reset your password.'),
+          const Column(
+            children: [
+              Text(
+                'Reset Password',
+                style: TextStyle(fontSize: 20),
+              ),
+              Text(
+                ('Enter the email associated with your account and we will send you an email with instruction to reset your password.'),
+              ),
+            ],
           ),
           const TextField(
             decoration: InputDecoration(
                 labelText: 'Email', hintText: 'Enter your email'),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const EmailChk(),
+                            ));
+            },
             child: const Text('Continue'),
           ),
         ],
